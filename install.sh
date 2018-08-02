@@ -134,7 +134,7 @@ function header {
     printf '%*s' "$len" | tr ' ' "$ch"
     if [ $STEPCOUNTER = true ]; then
         printf "Step "${LIGHT_GREEN}$2${NC}
-        printf "/7 "
+        printf "/5 "
     fi
     printf "║\n"
     echo "╚══════════════════════════════════════════════════════════════════════════════╝"
@@ -145,7 +145,7 @@ function check_sudo {
     if sudo -n true 2>/dev/null; then 
         :
     else
-        printf "${YELLOW}Oh, TUX will ask below about sudo rights to copy and install everything...${NC}\n\n"
+        printf "Oh, TUX will ask below about sudo rights to copy and install everything...\n\n"
     fi
 }
 
