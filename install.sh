@@ -6,77 +6,36 @@ LIGHT_RED='\033[1;31m'
 NC='\033[0m' # No Color
 
 function install {
+    # Add Pictures to locale folder
+    prefix="\$HOME/"                
+    pictures_var=$(cat $HOME/.config/user-dirs.dirs | grep "XDG_PICTURES_DIR")
+    pictures_folder_uncut=$(echo ${pictures_var/XDG_PICTURES_DIR=/""} | tr -d '"')
+    pictures_folder=${pictures_folder_uncut#$prefix}
+    mkdir -p ~/$pictures_folder/"tux"
+    printf "\n${YELLOW}Moving the images to your Pictures folder...${NC}\n"
+    sudo rsync -a tux-wallpapers-master/* ~/$pictures_folder/"tux"
+    sudo chown -R $USER: $HOME
     printf "\033c"
     header "TUX WALLPAPERS" "$1"
-    gh_repo="tux4ubuntu-wallpapers"
-    printf "This will download TUX's selection of his favorite wallpapers mostly in 4K \nsolution (400+ mb).\n"
-    printf "${LIGHT_GREEN}Ready to do this?${NC}\n"
+    echo "Finished downloading and adding wallpapers. You can find them in your Pictures folder."
     echo ""
-    check_sudo
-    echo "(Type 1 or 2, then press ENTER)"
+    printf "${LIGHT_GREEN}Do you want TUX to select an image for you?${NC}\n"
     select yn in "Yes" "No"; do
         case $yn in
-            Yes )
-                printf "\033c"
+            Yes ) printf "\033c"
                 header "TUX WALLPAPERS" "$1"
-                printf "${YELLOW}Initiating download...${NC}\n"
-
-                gh_repo="tux-wallpapers"
-                pic_temp_dir=$(mktemp -d)
-                printf "${YELLOW}Getting the latest version from GitHub...${NC}\n"
-                wget -O "/tmp/$gh_repo.tar.gz" \
-                https://github.com/Tux4Ubuntu/$gh_repo/archive/master.tar.gz
-                printf "${YELLOW}Unpacking archive...${NC}\n"
-                sudo tar -xvpf "/tmp/$gh_repo.tar.gz" -C /tmp 2>&1 | 
-                while read line; do
-                    x=$((x+1))
-                    echo -en " $x TUX selfies extracted (he's just kidding, these are nice images)...\r"
-                done
-                sudo chmod -R ug+rw /tmp/$gh_repo-master/*
-                # Add Pictures to locale folder
-                prefix="\$HOME/"                
-                pictures_var=$(cat $HOME/.config/user-dirs.dirs | grep "XDG_PICTURES_DIR")
-                pictures_folder_uncut=$(echo ${pictures_var/XDG_PICTURES_DIR=/""} | tr -d '"')
-                pictures_folder=${pictures_folder_uncut#$prefix}
-                mkdir -p ~/$pictures_folder/"tux"
-                printf "\n${YELLOW}Moving the images to your Pictures folder...${NC}\n"
-                sudo rsync -a /tmp/$gh_repo-master/* ~/$pictures_folder/"tux"
-                sudo chown -R $USER: $HOME
-                printf "\033c"
-                header "TUX WALLPAPERS" "$1"
-                echo "Finished downloading and adding wallpapers. You can find them in your Pictures folder."
-                echo ""
-                printf "${LIGHT_GREEN}Do you want TUX to select an image for you?${NC}\n"
-                select yn in "Yes" "No"; do
-                    case $yn in
-                        Yes ) printf "\033c"
-                            header "TUX WALLPAPERS" "$1"
-                            echo "TUX is stamping and clapping! Been planning this for 20 minutes now..."
-                            gsettings set org.gnome.desktop.background picture-uri "file:///$HOME/$pictures_folder/tux/winter/tux4ubuntu_winter_wooff3yav6u-nick-karvounis.jpg"
-                            gsettings set org.gnome.desktop.screensaver picture-uri "file:///$HOME/$pictures_folder/tux/winter/tux4ubuntu_winter_wooff3yav6u-nick-karvounis.jpg"
-                            sleep 5
-                            break;;
-                        No ) printf "\033c"
-                            header "TUX WALLPAPERS" "$1"
-                            echo "TUX stamping and clapping slowly turns to silence..."
-                            sleep 3
-                            break;;
-                    esac
-                done
-
-                printf "\033c"
-                header "TUX WALLPAPERS" "$1"
-                echo "Successfully added Tux's selection of wallpapers."
+                echo "TUX is stamping and clapping! Been planning this for 20 minutes now..."
+                gsettings set org.gnome.desktop.background picture-uri "file:///$HOME/$pictures_folder/tux/winter/tux4ubuntu_winter_wooff3yav6u-nick-karvounis.jpg"
+                gsettings set org.gnome.desktop.screensaver picture-uri "file:///$HOME/$pictures_folder/tux/winter/tux4ubuntu_winter_wooff3yav6u-nick-karvounis.jpg"
+                sleep 5
                 break;;
             No ) printf "\033c"
                 header "TUX WALLPAPERS" "$1"
-                echo "TUX stares at you with a curious look... Then he smiles and says 'Ok'."
+                echo "TUX stamping and clapping slowly turns to silence..."
+                sleep 3
                 break;;
         esac
     done
-    echo ""
-    read -n1 -r -p "Press any key to continue..." key
-    exit
 }
 
 function uninstall { 
