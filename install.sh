@@ -15,21 +15,21 @@ function install {
     printf "\n${YELLOW}Moving the images to your Pictures folder...${NC}\n"
     sudo rsync -a tux-wallpapers-master/* ~/$pictures_folder/"tux"
     sudo chown -R $USER: $HOME
-    printf "\033c"
+    #printf "\033c"
     header "TUX WALLPAPERS" "$1"
     echo "Finished downloading and adding wallpapers. You can find them in your Pictures folder."
     echo ""
     printf "${LIGHT_GREEN}Do you want TUX to select an image for you?${NC}\n"
     select yn in "Yes" "No"; do
         case $yn in
-            Yes ) printf "\033c"
+            Yes ) #printf "\033c"
                 header "TUX WALLPAPERS" "$1"
                 echo "TUX is stamping and clapping! Been planning this for 20 minutes now..."
                 gsettings set org.gnome.desktop.background picture-uri "file:///$HOME/$pictures_folder/tux/winter/tux4ubuntu_winter_wooff3yav6u-nick-karvounis.jpg"
                 gsettings set org.gnome.desktop.screensaver picture-uri "file:///$HOME/$pictures_folder/tux/winter/tux4ubuntu_winter_wooff3yav6u-nick-karvounis.jpg"
                 sleep 5
                 break;;
-            No ) printf "\033c"
+            No ) #printf "\033c"
                 header "TUX WALLPAPERS" "$1"
                 echo "TUX stamping and clapping slowly turns to silence..."
                 sleep 3
