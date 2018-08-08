@@ -23,8 +23,8 @@ function install {
     select yn in "Yes" "No"; do
         case $yn in
             Yes ) echo "TUX is stamping and clapping! Been planning this for 20 minutes now..."
-                gsettings set org.gnome.desktop.background picture-uri "file:///$HOME/$pictures_folder/tux/winter/tux4ubuntu_winter_wooff3yav6u-nick-karvounis.jpg"
-                gsettings set org.gnome.desktop.screensaver picture-uri "file:///$HOME/$pictures_folder/tux/winter/tux4ubuntu_winter_wooff3yav6u-nick-karvounis.jpg"
+                gsettings set org.gnome.desktop.background picture-uri "file:///$HOME/$pictures_folder/tux-wallpapers/winter/tux4ubuntu_winter_wooff3yav6u-nick-karvounis.jpg"
+                gsettings set org.gnome.desktop.screensaver picture-uri "file:///$HOME/$pictures_folder/tux-wallpapers/winter/tux4ubuntu_winter_wooff3yav6u-nick-karvounis.jpg"
                 sleep 5
                 printf "${LIGHT_GREEN}Done.${NC}\n"
                 break;;
