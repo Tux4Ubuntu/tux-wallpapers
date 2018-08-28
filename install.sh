@@ -11,7 +11,7 @@ function install {
     pictures_var=$(cat $HOME/.config/user-dirs.dirs | grep "XDG_PICTURES_DIR")
     pictures_folder_uncut=$(echo ${pictures_var/XDG_PICTURES_DIR=/""} | tr -d '"')
     pictures_folder=${pictures_folder_uncut#$prefix}
-    mkdir -p ~/$pictures_folder/"tux"
+    mkdir -p ~/$pictures_folder/"tux-wallpapers"
     printf "\n${YELLOW}Moving the images to your Pictures folder...${NC}\n"
     sudo rsync -a tux-wallpapers ~/$pictures_folder/tux-wallpapers
     sudo chown -R $USER: $HOME
