@@ -15,7 +15,7 @@ function install {
     printf "\n${YELLOW}Moving the images to your Pictures folder...${NC}\n"
     
     if [ ${PWD##*/} == "tux-install-master" ]; then
-        sudo rsync -a /tux-wallpapers-master/tux-wallpapers ~/$pictures_folder
+        sudo rsync -a ~/$pictures_folder/tux-wallpapers-master/tux-wallpapers ~/$pictures_folder/tux-wallpapers
     else
         sudo rsync -a tux-wallpapers ~/$pictures_folder
     fi
