@@ -21,7 +21,7 @@ function install {
     fi
     
     sudo chown -R $USER: $HOME
-    printf "\033c"
+    # printf "\033c"
     header "TUX WALLPAPERS" "$1"
     echo "Finished downloading and adding wallpapers. You can find them in your Pictures folder."
     echo ""
