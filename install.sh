@@ -13,9 +13,15 @@ function install {
     pictures_folder=${pictures_folder_uncut#$prefix}
     mkdir -p ~/$pictures_folder/"tux-wallpapers"
     printf "\n${YELLOW}Moving the images to your Pictures folder...${NC}\n"
-    sudo rsync -a tux-wallpapers ~/$pictures_folder/tux-wallpapers
+    
+    if [ ${PWD##*/} == "tux-install-master" ]; then
+        sudo rsync -a ../tux-wallpapers ~/$pictures_folder
+    else
+        sudo rsync -a tux-wallpapers ~/$pictures_folder
+    fi
+    
     sudo chown -R $USER: $HOME
-    # printf "\033c"
+    printf "\033c"
     header "TUX WALLPAPERS" "$1"
     echo "Finished downloading and adding wallpapers. You can find them in your Pictures folder."
     echo ""
@@ -39,7 +45,7 @@ function install {
 }
 
 function uninstall { 
-    # printf "\033c"
+    printf "\033c"
     header "TUX WALLPAPERS" "$1"
     gh_repo="tux4ubuntu-wallpapers"
     echo "This will remove all Tux 4K wallpapers."
@@ -49,7 +55,7 @@ function uninstall {
     select yn in "Yes" "No"; do
         case $yn in
             Yes )
-                # printf "\033c"
+                printf "\033c"
                 header "TUX WALLPAPERS" "$1"
                 printf "${YELLOW}Deleting TUX's favorite wallpapers...${NC}\n"
                 sleep 3
@@ -58,13 +64,13 @@ function uninstall {
                 pictures_var=$(cat $HOME/.config/user-dirs.dirs | grep "XDG_PICTURES_DIR")
                 pictures_folder_uncut=$(echo ${pictures_var/XDG_PICTURES_DIR=/""} | tr -d '"')
                 pictures_folder=${pictures_folder_uncut#$prefix}
-                sudo rm -rf ~/$pictures_folder/tux
+                sudo rm -rf ~/$pictures_folder/tux-wallpapers
 
-                # printf "\033c"
+                printf "\033c"
                 header "TUX WALLPAPERS" "$1"
                 echo "Successfully removed the Tux's wallpapers."
                 break;;
-            No ) # printf "\033c"
+            No ) printf "\033c"
                 header "TUX WALLPAPERS" "$1"
                 echo "TUX brightens up and gives you a long hug..."
                 break;;
