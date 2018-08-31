@@ -11,11 +11,11 @@ function install {
     pictures_var=$(cat $HOME/.config/user-dirs.dirs | grep "XDG_PICTURES_DIR")
     pictures_folder_uncut=$(echo ${pictures_var/XDG_PICTURES_DIR=/""} | tr -d '"')
     pictures_folder=${pictures_folder_uncut#$prefix}
-    mkdir -p ~/$pictures_folder/"tux-wallpapers"
+    # mkdir -p ~/$pictures_folder/"tux-wallpapers"
     printf "\n${YELLOW}Moving the images to your Pictures folder...${NC}\n"
     
     if [ ${PWD##*/} == "tux-install-master" ]; then
-        sudo rsync -a ~/$pictures_folder/tux-wallpapers-master/tux-wallpapers ~/$pictures_folder/tux-wallpapers
+        sudo rsync -a ~/$pictures_folder/tux-wallpapers-master/tux-wallpapers ~/$pictures_folder
     else
         sudo rsync -a tux-wallpapers ~/$pictures_folder
     fi
