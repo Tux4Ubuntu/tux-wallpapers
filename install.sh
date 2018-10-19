@@ -11,9 +11,13 @@ function install {
     pictures_var=$(cat $HOME/.config/user-dirs.dirs | grep "XDG_PICTURES_DIR")
     pictures_folder_uncut=$(echo ${pictures_var/XDG_PICTURES_DIR=/""} | tr -d '"')
     pictures_folder=${pictures_folder_uncut#$prefix}
-    mkdir -p ~/$pictures_folder/"tux"
-    printf "\n${YELLOW}Moving the images to your Pictures folder...${NC}\n"
-    sudo rsync --progress -a tux-wallpapers ~/$pictures_folder/tux-wallpapers
+    # mkdir -p ~/$pictures_folder/"tux-wallpapers"
+    printf "\n${YELLOW}Moving the images to your Pictures folder...${NC}\n"    
+    if [ ${PWD##*/} == "tux-install-master" ]; then
+        sudo rsync --progress -a ~/$pictures_folder/tux-wallpapers-master/tux-wallpapers ~/$pictures_folder
+    else
+        sudo rsync --progress -a tux-wallpapers ~/$pictures_folder
+    fi
     sudo chown -R $USER: $HOME
     printf "\033c"
     header "TUX WALLPAPERS" "$1"
@@ -61,7 +65,7 @@ function uninstall {
                 pictures_var=$(cat $HOME/.config/user-dirs.dirs | grep "XDG_PICTURES_DIR")
                 pictures_folder_uncut=$(echo ${pictures_var/XDG_PICTURES_DIR=/""} | tr -d '"')
                 pictures_folder=${pictures_folder_uncut#$prefix}
-                sudo rm -rf ~/$pictures_folder/tux
+                sudo rm -rf ~/$pictures_folder/tux-wallpapers
 
                 printf "\033c"
                 header "TUX WALLPAPERS" "$1"
