@@ -17,21 +17,18 @@ function install {
     sudo chown -R $USER: $HOME
     printf "\033c"
     header "TUX WALLPAPERS" "$1"
-    echo "Finished downloading and adding wallpapers. You can find them in your Pictures folder."
+    printf "${LIGHT_GREEN}Finished downloading and adding wallpapers. You can find them in your Pictures folder.${NC}\n"
     echo ""
-    printf "${LIGHT_GREEN}Do you want TUX to select an image for you?${NC}\n"
+    printf "${YELLOW}Do you want TUX to select a new background image for you?${NC}\n"
     select yn in "Yes" "No"; do
         case $yn in
-            Yes ) echo "TUX is stamping and clapping! Been planning this for 20 minutes now..."
+            Yes ) echo "TUX is stamping and clapping! He's been planning this for 20 minutes now..."
                 cd $HOME/$pictures_folder/tux-wallpapers/nature/
                 ls |sort -R |tail -1 |while read file; do
                     gsettings set org.gnome.desktop.background picture-uri "file:///$HOME/$pictures_folder/tux-wallpapers/nature/$file"
-                    gsettings set org.gnome.desktop.screensaver picture-uri "file:///$HOME/$pictures_folder/tux-wallpapers/winter/$file"
+                    gsettings set org.gnome.desktop.screensaver picture-uri "file:///$HOME/$pictures_folder/tux-wallpapers/nature/$file"
                 done
-                
-                
-                
-                sleep 5
+                sleep 3
                 printf "${LIGHT_GREEN}Done.${NC}\n"
                 break;;
             No ) echo "TUX stamping and clapping slowly turns to silence..."
