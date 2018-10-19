@@ -13,7 +13,7 @@ function install {
     pictures_folder=${pictures_folder_uncut#$prefix}
     mkdir -p ~/$pictures_folder/"tux"
     printf "\n${YELLOW}Moving the images to your Pictures folder...${NC}\n"
-    sudo rsync -a tux-wallpapers ~/$pictures_folder/tux-wallpapers
+    sudo rsync --progress -a tux-wallpapers ~/$pictures_folder/tux-wallpapers
     sudo chown -R $USER: $HOME
     printf "\033c"
     header "TUX WALLPAPERS" "$1"
@@ -23,8 +23,14 @@ function install {
     select yn in "Yes" "No"; do
         case $yn in
             Yes ) echo "TUX is stamping and clapping! Been planning this for 20 minutes now..."
-                gsettings set org.gnome.desktop.background picture-uri "file:///$HOME/$pictures_folder/tux-wallpapers/winter/tux4ubuntu_winter_wooff3yav6u-nick-karvounis.jpg"
-                gsettings set org.gnome.desktop.screensaver picture-uri "file:///$HOME/$pictures_folder/tux-wallpapers/winter/tux4ubuntu_winter_wooff3yav6u-nick-karvounis.jpg"
+                cd $HOME/$pictures_folder/tux-wallpapers/nature/
+                ls |sort -R |tail -1 |while read file; do
+                    gsettings set org.gnome.desktop.background picture-uri "file:///$HOME/$pictures_folder/tux-wallpapers/nature/$file"
+                    gsettings set org.gnome.desktop.screensaver picture-uri "file:///$HOME/$pictures_folder/tux-wallpapers/winter/$file"
+                done
+                
+                
+                
                 sleep 5
                 printf "${LIGHT_GREEN}Done.${NC}\n"
                 break;;
