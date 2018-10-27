@@ -21,7 +21,7 @@ function install {
     sudo chown -R $USER: $HOME
     printf "\033c"
     header "TUX WALLPAPERS" "$1"
-    printf "${LIGHT_GREEN}Finished downloading and adding wallpapers. You can find them in your Pictures folder.${NC}\n"
+    printf "${LIGHT_GREEN}Finished downloading and adding wallpapers. You can find them in your Pictures\nfolder.${NC}\n"
     echo ""
     printf "${YELLOW}Do you want TUX to select a new background image for you?${NC}\n"
     select yn in "Yes" "No"; do
